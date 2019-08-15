@@ -61,6 +61,6 @@ public class FullyAssociativeCache extends AssociativeCache {
         if (cache.size() == 0) {
             return "Empty Cache";
         }
-        return String.join("\n", cache);
+        return String.join(",", cache) ;//+ " Evict " + String.join("," , evictionPolicy.toString());
     }
 }
