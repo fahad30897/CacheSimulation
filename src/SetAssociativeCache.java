@@ -1,8 +1,6 @@
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
     Implementation of Set Associative Cache
@@ -11,7 +9,7 @@ public class SetAssociativeCache extends  AssociativeCache {
     private final int blockPower;
     private final int capacity;
     private final int cachePower;
-    private final int setCapacity;
+    private final int setBits;
 
 //    private final Set<String> cache;
     /**
@@ -35,7 +33,7 @@ public class SetAssociativeCache extends  AssociativeCache {
         this.cachePower = cachePower;
         this.setPower = setPower;
         this.capacity = 1 << (cachePower - blockPower);
-        this.setCapacity = 1 << (cachePower - blockPower - setPower);
+        this.setBits = cachePower - blockPower- setPower;
 //        FullyAssociativeCache fullyAssociativeCache = new FullyAssociativeCache( , blockPower,evictionPolicy);
         cache = new HashMap<>(this.capacity);
     }
@@ -63,7 +61,7 @@ public class SetAssociativeCache extends  AssociativeCache {
     public boolean load(String address) {
         final String blockOffset = address.substring(address.length() - blockPower );
 
-        final String setAddress = address.substring(address.length() - setPower - blockPower , address.length() - blockPower);
+        final String setAddress = address.substring(address.length() - setBits - blockPower , address.length() - blockPower);
         final String addressWithoutSet = new StringBuilder(address.substring(0 , address.length() - blockPower - setPower)).append(blockOffset).toString();
 //        System.out.println("Address " + address + " Set address "  + setAddress + " addressWithoutSet " + addressWithoutSet);
 
