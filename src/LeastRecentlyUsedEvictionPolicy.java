@@ -32,4 +32,9 @@ public class LeastRecentlyUsedEvictionPolicy implements EvictionPolicy {
     public String evict() {
         return lruList.removeFirst();
     }
+
+    @Override
+    public String toString(){
+        return String.join("," , this.lruList);
+    }
 }
